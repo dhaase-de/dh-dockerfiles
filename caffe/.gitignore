@@ -1,0 +1,4 @@
+bak/
+build*.log
+*.tar
+*.tar.gz

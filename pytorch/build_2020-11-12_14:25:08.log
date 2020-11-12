@@ -1,0 +1,350 @@
+Sending build context to Docker daemon  561.7kB
+Step 1/11 : FROM pytorch/pytorch:1.7.0-cuda11.0-cudnn8-runtime
+ ---> f8a1d10ae3d7
+Step 2/11 : LABEL maintainer "Daniel Haase <dockerhub@dhaase.de>"
+ ---> Running in f3cd2a1b311e
+Removing intermediate container f3cd2a1b311e
+ ---> cdd30c6ad7b0
+Step 3/11 : ENV DEBIAN_FRONTEND=noninteractive
+ ---> Running in 0dbec3afc496
+Removing intermediate container 0dbec3afc496
+ ---> 76cfa9382067
+Step 4/11 : RUN apt-get update && apt-get install --no-install-recommends --assume-yes     less     mc     nano     vim     && rm -rf /var/lib/apt/lists/*
+ ---> Running in 45ebf8cc7020
+Get:1 http://security.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]
+Get:2 http://archive.ubuntu.com/ubuntu bionic InRelease [242 kB]
+Get:3 http://archive.ubuntu.com/ubuntu bionic-updates InRelease [88.7 kB]
+Get:4 http://archive.ubuntu.com/ubuntu bionic-backports InRelease [74.6 kB]
+Get:5 http://security.ubuntu.com/ubuntu bionic-security/universe amd64 Packages [1364 kB]
+Get:6 http://archive.ubuntu.com/ubuntu bionic/universe amd64 Packages [11.3 MB]
+Get:7 http://security.ubuntu.com/ubuntu bionic-security/main amd64 Packages [1781 kB]
+Get:8 http://security.ubuntu.com/ubuntu bionic-security/restricted amd64 Packages [222 kB]
+Get:9 http://security.ubuntu.com/ubuntu bionic-security/multiverse amd64 Packages [15.8 kB]
+Get:10 http://archive.ubuntu.com/ubuntu bionic/restricted amd64 Packages [13.5 kB]
+Get:11 http://archive.ubuntu.com/ubuntu bionic/multiverse amd64 Packages [186 kB]
+Get:12 http://archive.ubuntu.com/ubuntu bionic/main amd64 Packages [1344 kB]
+Get:13 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 Packages [2129 kB]
+Get:14 http://archive.ubuntu.com/ubuntu bionic-updates/multiverse amd64 Packages [46.3 kB]
+Get:15 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 Packages [2198 kB]
+Get:16 http://archive.ubuntu.com/ubuntu bionic-updates/restricted amd64 Packages [247 kB]
+Get:17 http://archive.ubuntu.com/ubuntu bionic-backports/universe amd64 Packages [11.4 kB]
+Get:18 http://archive.ubuntu.com/ubuntu bionic-backports/main amd64 Packages [11.3 kB]
+Fetched 21.4 MB in 4s (4845 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libexpat1 libglib2.0-0 libgpm2 libmpdec2 libpython3.6 libpython3.6-minimal
+  libpython3.6-stdlib libreadline7 libslang2 libsqlite3-0 libssh2-1 mc-data
+  mime-support readline-common vim-common vim-runtime xxd
+Suggested packages:
+  gpm arj catdvi | texlive-binaries dbview djvulibre-bin file genisoimage gv
+  imagemagick libaspell-dev links | w3m | lynx odt2txt poppler-utils python
+  python-boto python-tz xpdf | pdf-viewer zip spell readline-doc ctags vim-doc
+  vim-scripts
+Recommended packages:
+  libglib2.0-data shared-mime-info xdg-user-dirs perl unzip file xz-utils
+The following NEW packages will be installed:
+  less libexpat1 libglib2.0-0 libgpm2 libmpdec2 libpython3.6
+  libpython3.6-minimal libpython3.6-stdlib libreadline7 libslang2 libsqlite3-0
+  libssh2-1 mc mc-data mime-support nano readline-common vim vim-common
+  vim-runtime xxd
+0 upgraded, 21 newly installed, 0 to remove and 8 not upgraded.
+Need to get 15.0 MB of archives.
+After this operation, 65.7 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu bionic/main amd64 less amd64 487-0.1 [112 kB]
+Get:2 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libexpat1 amd64 2.2.5-3ubuntu0.2 [80.5 kB]
+Get:3 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libglib2.0-0 amd64 2.56.4-0ubuntu0.18.04.6 [1171 kB]
+Get:4 http://archive.ubuntu.com/ubuntu bionic/main amd64 libmpdec2 amd64 2.4.2-1ubuntu1 [84.1 kB]
+Get:5 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libpython3.6-minimal amd64 3.6.9-1~18.04ubuntu1.3 [533 kB]
+Get:6 http://archive.ubuntu.com/ubuntu bionic/main amd64 mime-support all 3.60ubuntu1 [30.1 kB]
+Get:7 http://archive.ubuntu.com/ubuntu bionic/main amd64 readline-common all 7.0-3 [52.9 kB]
+Get:8 http://archive.ubuntu.com/ubuntu bionic/main amd64 libreadline7 amd64 7.0-3 [124 kB]
+Get:9 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libsqlite3-0 amd64 3.22.0-1ubuntu0.4 [499 kB]
+Get:10 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libpython3.6-stdlib amd64 3.6.9-1~18.04ubuntu1.3 [1713 kB]
+Get:11 http://archive.ubuntu.com/ubuntu bionic/main amd64 libslang2 amd64 2.3.1a-3ubuntu1 [424 kB]
+Get:12 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 xxd amd64 2:8.0.1453-1ubuntu1.4 [49.3 kB]
+Get:13 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 vim-common all 2:8.0.1453-1ubuntu1.4 [70.4 kB]
+Get:14 http://archive.ubuntu.com/ubuntu bionic/main amd64 nano amd64 2.9.3-2 [231 kB]
+Get:15 http://archive.ubuntu.com/ubuntu bionic/main amd64 libgpm2 amd64 1.20.7-5 [15.1 kB]
+Get:16 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libpython3.6 amd64 3.6.9-1~18.04ubuntu1.3 [1414 kB]
+Get:17 http://archive.ubuntu.com/ubuntu bionic/universe amd64 libssh2-1 amd64 1.8.0-1 [73.2 kB]
+Get:18 http://archive.ubuntu.com/ubuntu bionic/universe amd64 mc-data all 3:4.8.19-1 [1238 kB]
+Get:19 http://archive.ubuntu.com/ubuntu bionic/universe amd64 mc amd64 3:4.8.19-1 [474 kB]
+Get:20 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 vim-runtime all 2:8.0.1453-1ubuntu1.4 [5435 kB]
+Get:21 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 vim amd64 2:8.0.1453-1ubuntu1.4 [1152 kB]
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0mFetched 15.0 MB in 2s (6344 kB/s)
+Selecting previously unselected package less.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 5938 files and directories currently installed.)
+Preparing to unpack .../00-less_487-0.1_amd64.deb ...
+Unpacking less (487-0.1) ...
+Selecting previously unselected package libexpat1:amd64.
+Preparing to unpack .../01-libexpat1_2.2.5-3ubuntu0.2_amd64.deb ...
+Unpacking libexpat1:amd64 (2.2.5-3ubuntu0.2) ...
+Selecting previously unselected package libglib2.0-0:amd64.
+Preparing to unpack .../02-libglib2.0-0_2.56.4-0ubuntu0.18.04.6_amd64.deb ...
+Unpacking libglib2.0-0:amd64 (2.56.4-0ubuntu0.18.04.6) ...
+Selecting previously unselected package libmpdec2:amd64.
+Preparing to unpack .../03-libmpdec2_2.4.2-1ubuntu1_amd64.deb ...
+Unpacking libmpdec2:amd64 (2.4.2-1ubuntu1) ...
+Selecting previously unselected package libpython3.6-minimal:amd64.
+Preparing to unpack .../04-libpython3.6-minimal_3.6.9-1~18.04ubuntu1.3_amd64.deb ...
+Unpacking libpython3.6-minimal:amd64 (3.6.9-1~18.04ubuntu1.3) ...
+Selecting previously unselected package mime-support.
+Preparing to unpack .../05-mime-support_3.60ubuntu1_all.deb ...
+Unpacking mime-support (3.60ubuntu1) ...
+Selecting previously unselected package readline-common.
+Preparing to unpack .../06-readline-common_7.0-3_all.deb ...
+Unpacking readline-common (7.0-3) ...
+Selecting previously unselected package libreadline7:amd64.
+Preparing to unpack .../07-libreadline7_7.0-3_amd64.deb ...
+Unpacking libreadline7:amd64 (7.0-3) ...
+Selecting previously unselected package libsqlite3-0:amd64.
+Preparing to unpack .../08-libsqlite3-0_3.22.0-1ubuntu0.4_amd64.deb ...
+Unpacking libsqlite3-0:amd64 (3.22.0-1ubuntu0.4) ...
+Selecting previously unselected package libpython3.6-stdlib:amd64.
+Preparing to unpack .../09-libpython3.6-stdlib_3.6.9-1~18.04ubuntu1.3_amd64.deb ...
+Unpacking libpython3.6-stdlib:amd64 (3.6.9-1~18.04ubuntu1.3) ...
+Selecting previously unselected package libslang2:amd64.
+Preparing to unpack .../10-libslang2_2.3.1a-3ubuntu1_amd64.deb ...
+Unpacking libslang2:amd64 (2.3.1a-3ubuntu1) ...
+Selecting previously unselected package xxd.
+Preparing to unpack .../11-xxd_2%3a8.0.1453-1ubuntu1.4_amd64.deb ...
+Unpacking xxd (2:8.0.1453-1ubuntu1.4) ...
+Selecting previously unselected package vim-common.
+Preparing to unpack .../12-vim-common_2%3a8.0.1453-1ubuntu1.4_all.deb ...
+Unpacking vim-common (2:8.0.1453-1ubuntu1.4) ...
+Selecting previously unselected package nano.
+Preparing to unpack .../13-nano_2.9.3-2_amd64.deb ...
+Unpacking nano (2.9.3-2) ...
+Selecting previously unselected package libgpm2:amd64.
+Preparing to unpack .../14-libgpm2_1.20.7-5_amd64.deb ...
+Unpacking libgpm2:amd64 (1.20.7-5) ...
+Selecting previously unselected package libpython3.6:amd64.
+Preparing to unpack .../15-libpython3.6_3.6.9-1~18.04ubuntu1.3_amd64.deb ...
+Unpacking libpython3.6:amd64 (3.6.9-1~18.04ubuntu1.3) ...
+Selecting previously unselected package libssh2-1:amd64.
+Preparing to unpack .../16-libssh2-1_1.8.0-1_amd64.deb ...
+Unpacking libssh2-1:amd64 (1.8.0-1) ...
+Selecting previously unselected package mc-data.
+Preparing to unpack .../17-mc-data_3%3a4.8.19-1_all.deb ...
+Unpacking mc-data (3:4.8.19-1) ...
+Selecting previously unselected package mc.
+Preparing to unpack .../18-mc_3%3a4.8.19-1_amd64.deb ...
+Unpacking mc (3:4.8.19-1) ...
+Selecting previously unselected package vim-runtime.
+Preparing to unpack .../19-vim-runtime_2%3a8.0.1453-1ubuntu1.4_all.deb ...
+Adding 'diversion of /usr/share/vim/vim80/doc/help.txt to /usr/share/vim/vim80/doc/help.txt.vim-tiny by vim-runtime'
+Adding 'diversion of /usr/share/vim/vim80/doc/tags to /usr/share/vim/vim80/doc/tags.vim-tiny by vim-runtime'
+Unpacking vim-runtime (2:8.0.1453-1ubuntu1.4) ...
+Selecting previously unselected package vim.
+Preparing to unpack .../20-vim_2%3a8.0.1453-1ubuntu1.4_amd64.deb ...
+Unpacking vim (2:8.0.1453-1ubuntu1.4) ...
+Setting up readline-common (7.0-3) ...
+Setting up libexpat1:amd64 (2.2.5-3ubuntu0.2) ...
+Setting up less (487-0.1) ...
+Setting up mime-support (3.60ubuntu1) ...
+Setting up xxd (2:8.0.1453-1ubuntu1.4) ...
+Setting up libgpm2:amd64 (1.20.7-5) ...
+Setting up libreadline7:amd64 (7.0-3) ...
+Setting up libglib2.0-0:amd64 (2.56.4-0ubuntu0.18.04.6) ...
+No schema files found: doing nothing.
+Setting up mc-data (3:4.8.19-1) ...
+Setting up libpython3.6-minimal:amd64 (3.6.9-1~18.04ubuntu1.3) ...
+Setting up nano (2.9.3-2) ...
+update-alternatives: using /bin/nano to provide /usr/bin/editor (editor) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/editor.1.gz because associated file /usr/share/man/man1/nano.1.gz (of link group editor) doesn't exist
+update-alternatives: using /bin/nano to provide /usr/bin/pico (pico) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/pico.1.gz because associated file /usr/share/man/man1/nano.1.gz (of link group pico) doesn't exist
+Setting up libssh2-1:amd64 (1.8.0-1) ...
+Setting up vim-common (2:8.0.1453-1ubuntu1.4) ...
+Setting up libsqlite3-0:amd64 (3.22.0-1ubuntu0.4) ...
+Setting up vim-runtime (2:8.0.1453-1ubuntu1.4) ...
+Setting up libslang2:amd64 (2.3.1a-3ubuntu1) ...
+Setting up libmpdec2:amd64 (2.4.2-1ubuntu1) ...
+Setting up libpython3.6-stdlib:amd64 (3.6.9-1~18.04ubuntu1.3) ...
+Setting up mc (3:4.8.19-1) ...
+update-alternatives: using /usr/bin/mcview to provide /usr/bin/view (view) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/view.1.gz because associated file /usr/share/man/man1/mcview.1.gz (of link group view) doesn't exist
+Setting up libpython3.6:amd64 (3.6.9-1~18.04ubuntu1.3) ...
+Setting up vim (2:8.0.1453-1ubuntu1.4) ...
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/vim (vim) in auto mode
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/vimdiff (vimdiff) in auto mode
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/rvim (rvim) in auto mode
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/rview (rview) in auto mode
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/vi (vi) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/fr/man1/vi.1.gz because associated file /usr/share/man/fr/man1/vim.1.gz (of link group vi) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/it/man1/vi.1.gz because associated file /usr/share/man/it/man1/vim.1.gz (of link group vi) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/pl/man1/vi.1.gz because associated file /usr/share/man/pl/man1/vim.1.gz (of link group vi) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/ru/man1/vi.1.gz because associated file /usr/share/man/ru/man1/vim.1.gz (of link group vi) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/ja/man1/vi.1.gz because associated file /usr/share/man/ja/man1/vim.1.gz (of link group vi) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/vi.1.gz because associated file /usr/share/man/man1/vim.1.gz (of link group vi) doesn't exist
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/view (view) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/view.1.gz because associated file /usr/share/man/man1/vim.1.gz (of link group view) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/fr/man1/view.1.gz because associated file /usr/share/man/fr/man1/vim.1.gz (of link group view) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/it/man1/view.1.gz because associated file /usr/share/man/it/man1/vim.1.gz (of link group view) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/pl/man1/view.1.gz because associated file /usr/share/man/pl/man1/vim.1.gz (of link group view) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/ru/man1/view.1.gz because associated file /usr/share/man/ru/man1/vim.1.gz (of link group view) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/ja/man1/view.1.gz because associated file /usr/share/man/ja/man1/vim.1.gz (of link group view) doesn't exist
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/ex (ex) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/fr/man1/ex.1.gz because associated file /usr/share/man/fr/man1/vim.1.gz (of link group ex) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/it/man1/ex.1.gz because associated file /usr/share/man/it/man1/vim.1.gz (of link group ex) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/pl/man1/ex.1.gz because associated file /usr/share/man/pl/man1/vim.1.gz (of link group ex) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/ru/man1/ex.1.gz because associated file /usr/share/man/ru/man1/vim.1.gz (of link group ex) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/ja/man1/ex.1.gz because associated file /usr/share/man/ja/man1/vim.1.gz (of link group ex) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/ex.1.gz because associated file /usr/share/man/man1/vim.1.gz (of link group ex) doesn't exist
+Processing triggers for libc-bin (2.27-3ubuntu1.2) ...
+Removing intermediate container 45ebf8cc7020
+ ---> 052a4a82855f
+Step 5/11 : RUN pip install --upgrade pip &&     pip install --no-cache-dir     'scikit-image'     'opencv-python-headless>=4.4.0,<5.0'     'onnx==1.8.0'     'tensorflow==2.2.0'     'tensorflow-addons==0.11.2'
+ ---> Running in 029abbd0ddfb
+Collecting pip
+  Downloading pip-20.2.4-py2.py3-none-any.whl (1.5 MB)
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 20.0.2
+    Uninstalling pip-20.0.2:
+      Successfully uninstalled pip-20.0.2
+Successfully installed pip-20.2.4
+Collecting scikit-image
+  Downloading scikit_image-0.17.2-cp38-cp38-manylinux1_x86_64.whl (12.4 MB)
+Collecting opencv-python-headless<5.0,>=4.4.0
+  Downloading opencv_python_headless-4.4.0.46-cp38-cp38-manylinux2014_x86_64.whl (36.7 MB)
+Collecting onnx==1.8.0
+  Downloading onnx-1.8.0-cp38-cp38-manylinux2010_x86_64.whl (7.7 MB)
+Collecting tensorflow==2.2.0
+  Downloading tensorflow-2.2.0-cp38-cp38-manylinux2010_x86_64.whl (516.3 MB)
+Collecting tensorflow-addons==0.11.2
+  Downloading tensorflow_addons-0.11.2-cp38-cp38-manylinux2010_x86_64.whl (1.1 MB)
+Collecting scipy>=1.0.1
+  Downloading scipy-1.5.4-cp38-cp38-manylinux1_x86_64.whl (25.8 MB)
+Collecting matplotlib!=3.0.0,>=2.0.0
+  Downloading matplotlib-3.3.3-cp38-cp38-manylinux1_x86_64.whl (11.6 MB)
+Collecting tifffile>=2019.7.26
+  Downloading tifffile-2020.10.1-py3-none-any.whl (152 kB)
+Collecting networkx>=2.0
+  Downloading networkx-2.5-py3-none-any.whl (1.6 MB)
+Requirement already satisfied: numpy>=1.15.1 in /opt/conda/lib/python3.8/site-packages (from scikit-image) (1.19.2)
+Requirement already satisfied: pillow!=7.1.0,!=7.1.1,>=4.3.0 in /opt/conda/lib/python3.8/site-packages (from scikit-image) (8.0.0)
+Collecting PyWavelets>=1.1.1
+  Downloading PyWavelets-1.1.1-cp38-cp38-manylinux1_x86_64.whl (4.4 MB)
+Collecting imageio>=2.3.0
+  Downloading imageio-2.9.0-py3-none-any.whl (3.3 MB)
+Collecting protobuf
+  Downloading protobuf-3.13.0-cp38-cp38-manylinux1_x86_64.whl (1.3 MB)
+Requirement already satisfied: typing-extensions>=3.6.2.1 in /opt/conda/lib/python3.8/site-packages (from onnx==1.8.0) (3.7.4.3)
+Requirement already satisfied: six in /opt/conda/lib/python3.8/site-packages (from onnx==1.8.0) (1.14.0)
+Requirement already satisfied: wheel>=0.26; python_version >= "3" in /opt/conda/lib/python3.8/site-packages (from tensorflow==2.2.0) (0.34.2)
+Collecting grpcio>=1.8.6
+  Downloading grpcio-1.33.2-cp38-cp38-manylinux2014_x86_64.whl (3.8 MB)
+Collecting tensorboard<2.3.0,>=2.2.0
+  Downloading tensorboard-2.2.2-py3-none-any.whl (3.0 MB)
+Collecting opt-einsum>=2.3.2
+  Downloading opt_einsum-3.3.0-py3-none-any.whl (65 kB)
+Collecting wrapt>=1.11.1
+  Downloading wrapt-1.12.1.tar.gz (27 kB)
+Collecting astunparse==1.6.3
+  Downloading astunparse-1.6.3-py2.py3-none-any.whl (12 kB)
+Collecting absl-py>=0.7.0
+  Downloading absl_py-0.11.0-py3-none-any.whl (127 kB)
+Collecting termcolor>=1.1.0
+  Downloading termcolor-1.1.0.tar.gz (3.9 kB)
+Collecting gast==0.3.3
+  Downloading gast-0.3.3-py2.py3-none-any.whl (9.7 kB)
+Collecting keras-preprocessing>=1.1.0
+  Downloading Keras_Preprocessing-1.1.2-py2.py3-none-any.whl (42 kB)
+Collecting h5py<2.11.0,>=2.10.0
+  Downloading h5py-2.10.0-cp38-cp38-manylinux1_x86_64.whl (2.9 MB)
+Collecting google-pasta>=0.1.8
+  Downloading google_pasta-0.2.0-py3-none-any.whl (57 kB)
+Collecting tensorflow-estimator<2.3.0,>=2.2.0
+  Downloading tensorflow_estimator-2.2.0-py2.py3-none-any.whl (454 kB)
+Collecting typeguard>=2.7
+  Downloading typeguard-2.10.0-py3-none-any.whl (16 kB)
+Collecting pyparsing!=2.0.4,!=2.1.2,!=2.1.6,>=2.0.3
+  Downloading pyparsing-2.4.7-py2.py3-none-any.whl (67 kB)
+Collecting python-dateutil>=2.1
+  Downloading python_dateutil-2.8.1-py2.py3-none-any.whl (227 kB)
+Collecting kiwisolver>=1.0.1
+  Downloading kiwisolver-1.3.1-cp38-cp38-manylinux1_x86_64.whl (1.2 MB)
+Collecting cycler>=0.10
+  Downloading cycler-0.10.0-py2.py3-none-any.whl (6.5 kB)
+Requirement already satisfied: decorator>=4.3.0 in /opt/conda/lib/python3.8/site-packages (from networkx>=2.0->scikit-image) (4.4.2)
+Requirement already satisfied: setuptools in /opt/conda/lib/python3.8/site-packages (from protobuf->onnx==1.8.0) (46.4.0.post20200518)
+Requirement already satisfied: requests<3,>=2.21.0 in /opt/conda/lib/python3.8/site-packages (from tensorboard<2.3.0,>=2.2.0->tensorflow==2.2.0) (2.23.0)
+Collecting markdown>=2.6.8
+  Downloading Markdown-3.3.3-py3-none-any.whl (96 kB)
+Collecting google-auth<2,>=1.6.3
+  Downloading google_auth-1.23.0-py2.py3-none-any.whl (114 kB)
+Collecting werkzeug>=0.11.15
+  Downloading Werkzeug-1.0.1-py2.py3-none-any.whl (298 kB)
+Collecting tensorboard-plugin-wit>=1.6.0
+  Downloading tensorboard_plugin_wit-1.7.0-py3-none-any.whl (779 kB)
+Collecting google-auth-oauthlib<0.5,>=0.4.1
+  Downloading google_auth_oauthlib-0.4.2-py2.py3-none-any.whl (18 kB)
+Requirement already satisfied: chardet<4,>=3.0.2 in /opt/conda/lib/python3.8/site-packages (from requests<3,>=2.21.0->tensorboard<2.3.0,>=2.2.0->tensorflow==2.2.0) (3.0.4)
+Requirement already satisfied: urllib3!=1.25.0,!=1.25.1,<1.26,>=1.21.1 in /opt/conda/lib/python3.8/site-packages (from requests<3,>=2.21.0->tensorboard<2.3.0,>=2.2.0->tensorflow==2.2.0) (1.25.8)
+Requirement already satisfied: certifi>=2017.4.17 in /opt/conda/lib/python3.8/site-packages (from requests<3,>=2.21.0->tensorboard<2.3.0,>=2.2.0->tensorflow==2.2.0) (2020.6.20)
+Requirement already satisfied: idna<3,>=2.5 in /opt/conda/lib/python3.8/site-packages (from requests<3,>=2.21.0->tensorboard<2.3.0,>=2.2.0->tensorflow==2.2.0) (2.9)
+Collecting rsa<5,>=3.1.4; python_version >= "3.5"
+  Downloading rsa-4.6-py3-none-any.whl (47 kB)
+Collecting pyasn1-modules>=0.2.1
+  Downloading pyasn1_modules-0.2.8-py2.py3-none-any.whl (155 kB)
+Collecting cachetools<5.0,>=2.0.0
+  Downloading cachetools-4.1.1-py3-none-any.whl (10 kB)
+Collecting requests-oauthlib>=0.7.0
+  Downloading requests_oauthlib-1.3.0-py2.py3-none-any.whl (23 kB)
+Collecting pyasn1>=0.1.3
+  Downloading pyasn1-0.4.8-py2.py3-none-any.whl (77 kB)
+Collecting oauthlib>=3.0.0
+  Downloading oauthlib-3.1.0-py2.py3-none-any.whl (147 kB)
+Building wheels for collected packages: wrapt, termcolor
+  Building wheel for wrapt (setup.py): started
+  Building wheel for wrapt (setup.py): finished with status 'done'
+  Created wheel for wrapt: filename=wrapt-1.12.1-py3-none-any.whl size=19553 sha256=9e2ad72042c2258a9413ff101ed9fc47c63e83112e3c588e6da6a0054adf4f13
+  Stored in directory: /tmp/pip-ephem-wheel-cache-hmvd34jt/wheels/5f/fd/9e/b6cf5890494cb8ef0b5eaff72e5d55a70fb56316007d6dfe73
+  Building wheel for termcolor (setup.py): started
+  Building wheel for termcolor (setup.py): finished with status 'done'
+  Created wheel for termcolor: filename=termcolor-1.1.0-py3-none-any.whl size=4830 sha256=87d36e36c3fa12b67fa91cd88c5423e4a2c21acd015ff1cc269a7e5facb4d457
+  Stored in directory: /tmp/pip-ephem-wheel-cache-hmvd34jt/wheels/a0/16/9c/5473df82468f958445479c59e784896fa24f4a5fc024b0f501
+Successfully built wrapt termcolor
+Installing collected packages: scipy, pyparsing, python-dateutil, kiwisolver, cycler, matplotlib, tifffile, networkx, PyWavelets, imageio, scikit-image, opencv-python-headless, protobuf, onnx, grpcio, absl-py, markdown, pyasn1, rsa, pyasn1-modules, cachetools, google-auth, werkzeug, tensorboard-plugin-wit, oauthlib, requests-oauthlib, google-auth-oauthlib, tensorboard, opt-einsum, wrapt, astunparse, termcolor, gast, keras-preprocessing, h5py, google-pasta, tensorflow-estimator, tensorflow, typeguard, tensorflow-addons
+[91mERROR: After October 2020 you may experience errors when installing or updating packages. This is because pip will change the way that it resolves dependency conflicts.
+
+We recommend you use --use-feature=2020-resolver to test your packages with the new resolver before it becomes the default.
+
+tensorflow 2.2.0 requires scipy==1.4.1; python_version >= "3", but you'll have scipy 1.5.4 which is incompatible.
+[0mSuccessfully installed PyWavelets-1.1.1 absl-py-0.11.0 astunparse-1.6.3 cachetools-4.1.1 cycler-0.10.0 gast-0.3.3 google-auth-1.23.0 google-auth-oauthlib-0.4.2 google-pasta-0.2.0 grpcio-1.33.2 h5py-2.10.0 imageio-2.9.0 keras-preprocessing-1.1.2 kiwisolver-1.3.1 markdown-3.3.3 matplotlib-3.3.3 networkx-2.5 oauthlib-3.1.0 onnx-1.8.0 opencv-python-headless-4.4.0.46 opt-einsum-3.3.0 protobuf-3.13.0 pyasn1-0.4.8 pyasn1-modules-0.2.8 pyparsing-2.4.7 python-dateutil-2.8.1 requests-oauthlib-1.3.0 rsa-4.6 scikit-image-0.17.2 scipy-1.5.4 tensorboard-2.2.2 tensorboard-plugin-wit-1.7.0 tensorflow-2.2.0 tensorflow-addons-0.11.2 tensorflow-estimator-2.2.0 termcolor-1.1.0 tifffile-2020.10.1 typeguard-2.10.0 werkzeug-1.0.1 wrapt-1.12.1
+Removing intermediate container 029abbd0ddfb
+ ---> ebf14d7373db
+Step 6/11 : COPY ./python3/*.whl /home/build/python3/
+ ---> 8905f32bdb0c
+Step 7/11 : RUN pip install /home/build/python3/*.whl
+ ---> Running in 6972b1ba7b40
+Processing /home/build/python3/onnx_tf-1.6.0-py3-none-any.whl
+Requirement already satisfied: PyYAML in /opt/conda/lib/python3.8/site-packages (from onnx-tf==1.6.0) (5.3.1)
+Requirement already satisfied: onnx>=1.6.0 in /opt/conda/lib/python3.8/site-packages (from onnx-tf==1.6.0) (1.8.0)
+Requirement already satisfied: numpy in /opt/conda/lib/python3.8/site-packages (from onnx>=1.6.0->onnx-tf==1.6.0) (1.19.2)
+Requirement already satisfied: protobuf in /opt/conda/lib/python3.8/site-packages (from onnx>=1.6.0->onnx-tf==1.6.0) (3.13.0)
+Requirement already satisfied: six in /opt/conda/lib/python3.8/site-packages (from onnx>=1.6.0->onnx-tf==1.6.0) (1.14.0)
+Requirement already satisfied: typing-extensions>=3.6.2.1 in /opt/conda/lib/python3.8/site-packages (from onnx>=1.6.0->onnx-tf==1.6.0) (3.7.4.3)
+Requirement already satisfied: setuptools in /opt/conda/lib/python3.8/site-packages (from protobuf->onnx>=1.6.0->onnx-tf==1.6.0) (46.4.0.post20200518)
+Installing collected packages: onnx-tf
+Successfully installed onnx-tf-1.6.0
+Removing intermediate container 6972b1ba7b40
+ ---> 67bfc10e806b
+Step 8/11 : COPY ./scripts/versions.sh /home/build/
+ ---> 5118d6b4cc6c
+Step 9/11 : RUN /home/build/versions.sh > /home/build/versions.txt
+ ---> Running in 898dc8a56c92
+Removing intermediate container 898dc8a56c92
+ ---> 7a91518be151
+Step 10/11 : COPY Dockerfile /home/build/
+ ---> 2c27dea2519d
+Step 11/11 : WORKDIR /
+ ---> Running in 06f3fde601db
+Removing intermediate container 06f3fde601db
+ ---> 59c7424a2f4c
+Successfully built 59c7424a2f4c

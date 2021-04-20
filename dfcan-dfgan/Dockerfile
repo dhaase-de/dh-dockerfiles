@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install --no-install-recommends --assume-yes \
 RUN pip3 install --upgrade pip
 
 # install TensorFlow and Keras and further dependencies for DL-SL
-RUN pip install tensorflow==1.10.0 keras==2.2.4 imageio pillow scikit-image
+RUN pip install tensorflow==1.10.0 keras==2.2.4 imageio pillow scikit-image 'h5py<3.0.0'
 
 # collect build information
 COPY Dockerfile /home/build/

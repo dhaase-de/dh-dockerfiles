@@ -1,0 +1,28 @@
+Sending build context to Docker daemon  5.546MB
+Step 1/9 : FROM ubuntu:18.04
+ ---> 5a214d77f5d7
+Step 2/9 : RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install     cmake     ghostscript     git     libffi-dev     libfreetype6-dev     libfribidi-dev     libharfbuzz-dev     libjpeg-turbo-progs     libjpeg8-dev     liblcms2-dev     libopenjp2-7-dev     libssl-dev     libsqlite3-dev     libtiff5-dev     libwebp-dev     netpbm     tcl8.6-dev     tk8.6-dev     wget     xvfb     zlib1g-dev     && rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> 2f180b9054c7
+Step 3/9 : RUN mkdir /home/build && cd /home/build
+ ---> Using cache
+ ---> 01359fc192a4
+Step 4/9 : RUN wget https://www.python.org/ftp/python/3.7.11/Python-3.7.11.tgz     && tar xzf Python-3.7.11.tgz     && cd Python-3.7.11     && ./configure     && make altinstall     && cd ..     && rm -r Python-3.7.11 Python-3.7.11.tgz
+ ---> Using cache
+ ---> 3b148fef50d6
+Step 5/9 : RUN python3.7 -m pip install virtualenv     && python3.7 -m virtualenv --system-site-packages /home/build/venv     && /home/build/venv/bin/pip install --no-cache-dir --upgrade pip     && /home/build/venv/bin/pip install --no-cache-dir cffi numpy olefile pytest pytest-cov pytest-timeout
+ ---> Using cache
+ ---> 787f69e7bc36
+Step 6/9 : RUN cd /home/build && git clone https://github.com/uploadcare/pillow-simd.git
+ ---> Using cache
+ ---> 34049dee9a95
+Step 7/9 : RUN mkdir /home/build/out
+ ---> Using cache
+ ---> 5df633295122
+Step 8/9 : COPY scripts/make-pillow-simd.sh /home/build/
+ ---> 770957d6b0dc
+Step 9/9 : WORKDIR /home/build
+ ---> Running in f88688636a56
+Removing intermediate container f88688636a56
+ ---> 22dec9ea7292
+Successfully built 22dec9ea7292

@@ -1,4 +1,4 @@
-FROM pytorch/pytorch:1.7.0-cuda11.0-cudnn8-runtime
+FROM pytorch/pytorch:1.10.0-cuda11.3-cudnn8-runtime
 LABEL maintainer "Daniel Haase <dockerhub@dhaase.de>"
 
 # install system tools
@@ -11,17 +11,17 @@ RUN apt-get update && apt-get install --no-install-recommends --assume-yes \
     && rm -rf /var/lib/apt/lists/*
 
 # install Python3 modules
-RUN pip install --upgrade pip && \
+RUN pip install --upgrade 'pip' && \
     pip install --no-cache-dir \
+    'opencv-python-headless>=4.4.0,<5.0' \ 
     'scikit-image' \
-    'opencv-python-headless>=4.4.0,<5.0' \
-    'onnx==1.8.0' \
-    'tensorflow==2.2.0' \
-    'tensorflow-addons==0.11.2'
+    'scikit-learn' \
+    'scipy' \
+    'matplotlib'
 
-# workaround, as onnx-tf==1.6.0 is not yet on PyPI (https://github.com/onnx/onnx-tensorflow/issues/738)
-COPY ./python3/*.whl /home/build/python3/
-RUN pip install /home/build/python3/*.whl
+# install latest version of torchvision with matching CUDA version
+# see: https://github.com/pytorch/vision/issues/2912#issuecomment-717547022
+RUN pip install --upgrade 'torchvision==0.11.1+cu113' -f https://download.pytorch.org/whl/torch_stable.html
 
 # collect further version information
 COPY ./scripts/versions.sh /home/build/

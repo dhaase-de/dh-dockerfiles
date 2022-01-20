@@ -15,5 +15,7 @@ echo -n "$(cat /usr/include/cudnn.h | grep "#define CUDNN_MAJOR" | sed 's/^#defi
 echo -n "$(cat /usr/include/cudnn.h | grep "#define CUDNN_MINOR" | sed 's/^#define CUDNN_MINOR //')."
 echo "$(cat /usr/include/cudnn.h | grep "#define CUDNN_PATCHLEVEL" | sed 's/^#define CUDNN_PATCHLEVEL //')"
 echo "OpenCV (Python) $(echo 'import cv2; print(cv2.__version__)' | python3)"
+echo "scikit-image (Python) $(echo 'import skimage; print(skimage.__version__)' | python3)"
+echo "scikit-learn (Python) $(echo 'import sklearn; print(sklearn.__version__)' | python3)"
 echo "Tensorflow $(echo 'import tensorflow as tf; print(tf.__version__)' | python3)"
 echo "Caffe $(cat /home/build/caffe/distribute/version.txt)"

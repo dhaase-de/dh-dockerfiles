@@ -28,7 +28,11 @@ RUN apt-get update && apt-get install --no-install-recommends --assume-yes \
     python3-pip \
     python3-setuptools \
     python3-skimage \
+    python3-sklearn \
     && rm -rf /var/lib/apt/lists/*
+
+# update install tools
+RUN pip3 install --upgrade pip setuptools
 
 # install TensorFlow
 RUN pip3 install protobuf tensorflow==1.9.0
@@ -72,7 +76,11 @@ RUN apt-get update && apt-get install --no-install-recommends --assume-yes \
     python3-pip \
     python3-setuptools \
     python3-skimage \
+    python3-sklearn \
     && rm -rf /var/lib/apt/lists/*
+
+# update install tools
+RUN pip3 install --upgrade pip setuptools
 
 # install TensorFlow
 RUN pip3 install protobuf tensorflow==1.9.0

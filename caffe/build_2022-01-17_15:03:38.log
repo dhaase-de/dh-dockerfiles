@@ -1,0 +1,601 @@
+Sending build context to Docker daemon  13.31kB
+Step 1/22 : FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04 AS builder
+ ---> af9c1dace299
+Step 2/22 : ENV DEBIAN_FRONTEND=noninteractive
+ ---> Using cache
+ ---> 9d12e4eef8dd
+Step 3/22 : RUN apt-get update && apt-get install --no-install-recommends --assume-yes     build-essential     git     libatlas-base-dev     libboost-all-dev     libgflags-dev     libgoogle-glog-dev     libhdf5-serial-dev     liblmdb-dev     libleveldb-dev     libopencv-dev     libprotobuf-dev     libsnappy-dev     protobuf-compiler     python3     python3-dev     python3-numpy     python3-opencv     python3-pip     python3-setuptools     python3-skimage     python3-sklearn     && rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> 1d17ba588c0d
+Step 4/22 : RUN pip3 install --upgrade pip setuptools
+ ---> Running in 49736f1cbabe
+Collecting pip
+  Downloading https://files.pythonhosted.org/packages/a4/6d/6463d49a933f547439d6b5b98b46af8742cc03ae83543e4d7688c2420f8b/pip-21.3.1-py3-none-any.whl (1.7MB)
+Collecting setuptools
+  Downloading https://files.pythonhosted.org/packages/b0/3a/88b210db68e56854d0bcf4b38e165e03be377e13907746f825790f3df5bf/setuptools-59.6.0-py3-none-any.whl (952kB)
+Installing collected packages: pip, setuptools
+  Found existing installation: pip 9.0.1
+    Not uninstalling pip at /usr/lib/python3/dist-packages, outside environment /usr
+  Found existing installation: setuptools 39.0.1
+    Not uninstalling setuptools at /usr/lib/python3/dist-packages, outside environment /usr
+Successfully installed pip-21.3.1 setuptools-59.6.0
+Removing intermediate container 49736f1cbabe
+ ---> 0ad77000a68f
+Step 5/22 : RUN pip3 install protobuf tensorflow==1.9.0
+ ---> Running in d28882c97df4
+Collecting protobuf
+  Downloading protobuf-3.19.3-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.1 MB)
+Collecting tensorflow==1.9.0
+  Downloading tensorflow-1.9.0-cp36-cp36m-manylinux1_x86_64.whl (51.1 MB)
+Collecting tensorboard<1.10.0,>=1.9.0
+  Downloading tensorboard-1.9.0-py3-none-any.whl (3.3 MB)
+Requirement already satisfied: numpy>=1.13.3 in /usr/lib/python3/dist-packages (from tensorflow==1.9.0) (1.13.3)
+Requirement already satisfied: six>=1.10.0 in /usr/lib/python3/dist-packages (from tensorflow==1.9.0) (1.11.0)
+Collecting grpcio>=1.8.6
+  Downloading grpcio-1.43.0-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.1 MB)
+Collecting termcolor>=1.1.0
+  Downloading termcolor-1.1.0.tar.gz (3.9 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting wheel>=0.26
+  Downloading wheel-0.37.1-py2.py3-none-any.whl (35 kB)
+Collecting astor>=0.6.0
+  Downloading astor-0.8.1-py2.py3-none-any.whl (27 kB)
+Collecting gast>=0.2.0
+  Downloading gast-0.5.3-py3-none-any.whl (19 kB)
+Collecting absl-py>=0.1.6
+  Downloading absl_py-1.0.0-py3-none-any.whl (126 kB)
+Collecting setuptools<=39.1.0
+  Downloading setuptools-39.1.0-py2.py3-none-any.whl (566 kB)
+Collecting werkzeug>=0.11.10
+  Downloading Werkzeug-2.0.2-py3-none-any.whl (288 kB)
+Collecting markdown>=2.6.8
+  Downloading Markdown-3.3.6-py3-none-any.whl (97 kB)
+Collecting importlib-metadata>=4.4
+  Downloading importlib_metadata-4.8.3-py3-none-any.whl (17 kB)
+Collecting dataclasses
+  Downloading dataclasses-0.8-py3-none-any.whl (19 kB)
+Collecting zipp>=0.5
+  Downloading zipp-3.6.0-py3-none-any.whl (5.3 kB)
+Collecting typing-extensions>=3.6.4
+  Downloading typing_extensions-4.0.1-py3-none-any.whl (22 kB)
+Using legacy 'setup.py install' for termcolor, since package 'wheel' is not installed.
+Installing collected packages: zipp, typing-extensions, importlib-metadata, dataclasses, wheel, werkzeug, protobuf, markdown, termcolor, tensorboard, setuptools, grpcio, gast, astor, absl-py, tensorflow
+    Running setup.py install for termcolor: started
+    Running setup.py install for termcolor: finished with status 'done'
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 59.6.0
+    Uninstalling setuptools-59.6.0:
+      Successfully uninstalled setuptools-59.6.0
+Successfully installed absl-py-1.0.0 astor-0.8.1 dataclasses-0.8 gast-0.5.3 grpcio-1.43.0 importlib-metadata-4.8.3 markdown-3.3.6 protobuf-3.19.3 setuptools-39.1.0 tensorboard-1.9.0 tensorflow-1.9.0 termcolor-1.1.0 typing-extensions-4.0.1 werkzeug-2.0.2 wheel-0.37.1 zipp-3.6.0
+[91mWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+[0mRemoving intermediate container d28882c97df4
+ ---> d28f4d714092
+Step 6/22 : ENV CAFFE_ROOT=/home/build/caffe
+ ---> Running in 81ab4b6ea650
+Removing intermediate container 81ab4b6ea650
+ ---> 3cb6f51888df
+Step 7/22 : WORKDIR $CAFFE_ROOT
+ ---> Running in e0fa7d4718f0
+Removing intermediate container e0fa7d4718f0
+ ---> c6eacd90b91a
+Step 8/22 : RUN git clone https://github.com/BVLC/caffe.git . && git checkout 9b891540183ddc834a02b2bd81b31afae71b2153 && mkdir ./distribute && echo $(git describe --tags) > ./distribute/version.txt
+ ---> Running in afd5288744ac
+[91mCloning into '.'...
+[0m[91mNote: checking out '9b891540183ddc834a02b2bd81b31afae71b2153'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at 9b891540 Merge pull request #6878 from timgates42/bugfix/typo_overridden
+[0mRemoving intermediate container afd5288744ac
+ ---> 9175c2eba03e
+Step 9/22 : COPY caffe/* $CAFFE_ROOT/
+ ---> 41c16f15ccf6
+Step 10/22 : RUN ./make.sh
+ ---> Running in 94eab022dcd0
+PROTOC src/caffe/proto/caffe.proto
+NVCC src/caffe/solvers/sgd_solver.cu
+NVCC src/caffe/solvers/nesterov_solver.cu
+NVCC src/caffe/solvers/adam_solver.cu
+NVCC src/caffe/solvers/adadelta_solver.cu
+NVCC src/caffe/solvers/adagrad_solver.cu
+NVCC src/caffe/solvers/rmsprop_solver.cu
+NVCC src/caffe/util/im2col.cu
+NVCC src/caffe/util/math_functions.cu
+[91mIn file included from src/caffe/util/math_functions.cu:1:0:
+/usr/local/cuda/include/math_functions.h:54:2: warning: #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead." [-Wcpp]
+ #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead."
+  ^~~~~~~
+[0m[91mIn file included from src/caffe/util/math_functions.cu:1:0:
+/usr/local/cuda/include/math_functions.h:54:2: warning: #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead." [-Wcpp]
+ #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead."
+  ^~~~~~~
+[0m[91mIn file included from src/caffe/util/math_functions.cu:1:0:
+/usr/local/cuda/include/math_functions.h:54:2: warning: #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead." [-Wcpp]
+ #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead."
+  ^~~~~~~
+[0m[91mIn file included from src/caffe/util/math_functions.cu:1:0:
+/usr/local/cuda/include/math_functions.h:54:2: warning: #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead." [-Wcpp]
+ #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead."
+  ^~~~~~~
+[0m[91mIn file included from src/caffe/util/math_functions.cu:1:0:
+/usr/local/cuda/include/math_functions.h:54:2: warning: #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead." [-Wcpp]
+ #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead."
+  ^~~~~~~
+[0m[91mIn file included from src/caffe/util/math_functions.cu:1:0:
+/usr/local/cuda/include/math_functions.h:54:2: warning: #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead." [-Wcpp]
+ #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead."
+  ^~~~~~~
+[0m[91mIn file included from src/caffe/util/math_functions.cu:1:0:
+/usr/local/cuda/include/math_functions.h:54:2: warning: #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead." [-Wcpp]
+ #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead."
+  ^~~~~~~
+[0mNVCC src/caffe/layers/base_data_layer.cu
+NVCC src/caffe/layers/log_layer.cu
+In file included from src/caffe/util/math_functions.cu:1:0:
+/usr/local/cuda/include/math_functions.h:54:2: warning: #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead." [-Wcpp]
+ #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead."
+  ^~~~~~~
+In file included from src/caffe/util/math_functions.cu:1:0:
+/usr/local/cuda/include/math_functions.h:54:2: warning: #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead." [-Wcpp]
+ #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead."
+  ^~~~~~~
+In file included from src/caffe/util/math_functions.cu:1:0:
+/usr/local/cuda/include/math_functions.h:54:2: warning: #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead." [-Wcpp]
+ #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead."
+  ^~~~~~~
+In file included from src/caffe/util/math_functions.cu:1:0:
+/usr/local/cuda/include/math_functions.h:54:2: warning: #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead." [-Wcpp]
+ #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead."
+  ^~~~~~~
+In file included from src/caffe/util/math_functions.cu:1:0:
+/usr/local/cuda/include/math_functions.h:54:2: warning: #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead." [-Wcpp]
+ #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead."
+  ^~~~~~~
+In file included from src/caffe/util/math_functions.cu:1:0:
+/usr/local/cuda/include/math_functions.h:54:2: warning: #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead." [-Wcpp]
+ #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead."
+  ^~~~~~~
+In file included from src/caffe/util/math_functions.cu:1:0:
+/usr/local/cuda/include/math_functions.h:54:2: warning: #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead." [-Wcpp]
+ #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead."
+  ^~~~~~~
+NVCC src/caffe/layers/bnll_layer.cu
+NVCC src/caffe/layers/embed_layer.cu
+NVCC src/caffe/layers/hdf5_data_layer.cu
+NVCC src/caffe/layers/cudnn_lcn_layer.cu
+NVCC src/caffe/layers/cudnn_tanh_layer.cu
+NVCC src/caffe/layers/im2col_layer.cu
+NVCC src/caffe/layers/contrastive_loss_layer.cu
+NVCC src/caffe/layers/exp_layer.cu
+NVCC src/caffe/layers/sigmoid_cross_entropy_loss_layer.cu
+NVCC src/caffe/layers/recurrent_layer.cu
+NVCC src/caffe/layers/bias_layer.cu
+NVCC src/caffe/layers/concat_layer.cu
+NVCC src/caffe/layers/batch_reindex_layer.cu
+NVCC src/caffe/layers/cudnn_softmax_layer.cu
+NVCC src/caffe/layers/silence_layer.cu
+NVCC src/caffe/layers/lrn_layer.cu
+NVCC src/caffe/layers/cudnn_sigmoid_layer.cu
+NVCC src/caffe/layers/relu_layer.cu
+NVCC src/caffe/layers/dropout_layer.cu
+NVCC src/caffe/layers/prelu_layer.cu
+NVCC src/caffe/layers/lstm_unit_layer.cu
+NVCC src/caffe/layers/cudnn_deconv_layer.cu
+NVCC src/caffe/layers/pooling_layer.cu
+NVCC src/caffe/layers/swish_layer.cu
+NVCC src/caffe/layers/softmax_loss_layer.cu
+NVCC src/caffe/layers/reduction_layer.cu
+NVCC src/caffe/layers/hdf5_output_layer.cu
+NVCC src/caffe/layers/euclidean_loss_layer.cu
+NVCC src/caffe/layers/power_layer.cu
+NVCC src/caffe/layers/clip_layer.cu
+NVCC src/caffe/layers/mvn_layer.cu
+NVCC src/caffe/layers/absval_layer.cu
+NVCC src/caffe/layers/slice_layer.cu
+NVCC src/caffe/layers/cudnn_pooling_layer.cu
+NVCC src/caffe/layers/eltwise_layer.cu
+NVCC src/caffe/layers/conv_layer.cu
+NVCC src/caffe/layers/crop_layer.cu
+NVCC src/caffe/layers/batch_norm_layer.cu
+NVCC src/caffe/layers/cudnn_relu_layer.cu
+NVCC src/caffe/layers/accuracy_layer.cu
+NVCC src/caffe/layers/inner_product_layer.cu
+NVCC src/caffe/layers/cudnn_lrn_layer.cu
+NVCC src/caffe/layers/softmax_layer.cu
+NVCC src/caffe/layers/tile_layer.cu
+NVCC src/caffe/layers/tanh_layer.cu
+NVCC src/caffe/layers/filter_layer.cu
+NVCC src/caffe/layers/cudnn_conv_layer.cu
+NVCC src/caffe/layers/threshold_layer.cu
+NVCC src/caffe/layers/elu_layer.cu
+NVCC src/caffe/layers/sigmoid_layer.cu
+NVCC src/caffe/layers/split_layer.cu
+NVCC src/caffe/layers/deconv_layer.cu
+NVCC src/caffe/layers/scale_layer.cu
+CXX tools/caffe.cpp
+CXX tools/convert_imageset.cpp
+CXX tools/upgrade_solver_proto_text.cpp
+CXX tools/compute_image_mean.cpp
+CXX tools/extract_features.cpp
+CXX tools/upgrade_net_proto_binary.cpp
+CXX tools/upgrade_net_proto_text.cpp
+CXX examples/cpp_classification/classification.cpp
+CXX examples/mnist/convert_mnist_data.cpp
+CXX examples/siamese/convert_mnist_siamese_data.cpp
+CXX examples/cifar10/convert_cifar_data.cpp
+CXX .build_release/src/caffe/proto/caffe.pb.cc
+CXX src/caffe/solvers/adagrad_solver.cpp
+CXX src/caffe/solvers/adadelta_solver.cpp
+CXX src/caffe/solvers/nesterov_solver.cpp
+CXX src/caffe/solvers/rmsprop_solver.cpp
+CXX src/caffe/solvers/sgd_solver.cpp
+CXX src/caffe/solvers/adam_solver.cpp
+CXX src/caffe/internal_thread.cpp
+CXX src/caffe/util/math_functions.cpp
+CXX src/caffe/util/cudnn.cpp
+CXX src/caffe/util/hdf5.cpp
+CXX src/caffe/util/blocking_queue.cpp
+CXX src/caffe/util/benchmark.cpp
+CXX src/caffe/util/upgrade_proto.cpp
+CXX src/caffe/util/db_leveldb.cpp
+CXX src/caffe/util/io.cpp
+CXX src/caffe/util/db.cpp
+CXX src/caffe/util/insert_splits.cpp
+CXX src/caffe/util/im2col.cpp
+CXX src/caffe/util/signal_handler.cpp
+CXX src/caffe/util/db_lmdb.cpp
+CXX src/caffe/layer.cpp
+CXX src/caffe/parallel.cpp
+CXX src/caffe/data_transformer.cpp
+CXX src/caffe/layers/sigmoid_layer.cpp
+CXX src/caffe/layers/batch_norm_layer.cpp
+CXX src/caffe/layers/prelu_layer.cpp
+CXX src/caffe/layers/cudnn_conv_layer.cpp
+CXX src/caffe/layers/softmax_loss_layer.cpp
+CXX src/caffe/layers/image_data_layer.cpp
+CXX src/caffe/layers/im2col_layer.cpp
+CXX src/caffe/layers/exp_layer.cpp
+CXX src/caffe/layers/log_layer.cpp
+CXX src/caffe/layers/cudnn_lrn_layer.cpp
+CXX src/caffe/layers/absval_layer.cpp
+CXX src/caffe/layers/neuron_layer.cpp
+CXX src/caffe/layers/input_layer.cpp
+CXX src/caffe/layers/base_data_layer.cpp
+CXX src/caffe/layers/contrastive_loss_layer.cpp
+CXX src/caffe/layers/dummy_data_layer.cpp
+CXX src/caffe/layers/clip_layer.cpp
+CXX src/caffe/layers/split_layer.cpp
+CXX src/caffe/layers/mvn_layer.cpp
+CXX src/caffe/layers/tanh_layer.cpp
+CXX src/caffe/layers/euclidean_loss_layer.cpp
+CXX src/caffe/layers/reduction_layer.cpp
+CXX src/caffe/layers/bnll_layer.cpp
+CXX src/caffe/layers/swish_layer.cpp
+CXX src/caffe/layers/cudnn_lcn_layer.cpp
+CXX src/caffe/layers/elu_layer.cpp
+CXX src/caffe/layers/cudnn_tanh_layer.cpp
+CXX src/caffe/layers/lstm_layer.cpp
+CXX src/caffe/layers/batch_reindex_layer.cpp
+CXX src/caffe/layers/cudnn_softmax_layer.cpp
+CXX src/caffe/layers/threshold_layer.cpp
+CXX src/caffe/layers/memory_data_layer.cpp
+CXX src/caffe/layers/deconv_layer.cpp
+CXX src/caffe/layers/sigmoid_cross_entropy_loss_layer.cpp
+CXX src/caffe/layers/base_conv_layer.cpp
+CXX src/caffe/layers/multinomial_logistic_loss_layer.cpp
+CXX src/caffe/layers/power_layer.cpp
+CXX src/caffe/layers/rnn_layer.cpp
+CXX src/caffe/layers/hdf5_data_layer.cpp
+CXX src/caffe/layers/lstm_unit_layer.cpp
+CXX src/caffe/layers/concat_layer.cpp
+CXX src/caffe/layers/filter_layer.cpp
+CXX src/caffe/layers/cudnn_deconv_layer.cpp
+CXX src/caffe/layers/accuracy_layer.cpp
+CXX src/caffe/layers/cudnn_relu_layer.cpp
+CXX src/caffe/layers/relu_layer.cpp
+CXX src/caffe/layers/infogain_loss_layer.cpp
+CXX src/caffe/layers/recurrent_layer.cpp
+CXX src/caffe/layers/inner_product_layer.cpp
+CXX src/caffe/layers/parameter_layer.cpp
+CXX src/caffe/layers/pooling_layer.cpp
+CXX src/caffe/layers/window_data_layer.cpp
+CXX src/caffe/layers/softmax_layer.cpp
+CXX src/caffe/layers/hinge_loss_layer.cpp
+CXX src/caffe/layers/conv_layer.cpp
+CXX src/caffe/layers/silence_layer.cpp
+CXX src/caffe/layers/bias_layer.cpp
+CXX src/caffe/layers/spp_layer.cpp
+CXX src/caffe/layers/scale_layer.cpp
+CXX src/caffe/layers/data_layer.cpp
+CXX src/caffe/layers/cudnn_pooling_layer.cpp
+CXX src/caffe/layers/argmax_layer.cpp
+CXX src/caffe/layers/eltwise_layer.cpp
+CXX src/caffe/layers/flatten_layer.cpp
+CXX src/caffe/layers/hdf5_output_layer.cpp
+CXX src/caffe/layers/slice_layer.cpp
+CXX src/caffe/layers/embed_layer.cpp
+CXX src/caffe/layers/loss_layer.cpp
+CXX src/caffe/layers/lrn_layer.cpp
+CXX src/caffe/layers/reshape_layer.cpp
+CXX src/caffe/layers/crop_layer.cpp
+CXX src/caffe/layers/cudnn_sigmoid_layer.cpp
+CXX src/caffe/layers/dropout_layer.cpp
+CXX src/caffe/layers/tile_layer.cpp
+CXX src/caffe/blob.cpp
+CXX src/caffe/syncedmem.cpp
+CXX src/caffe/net.cpp
+CXX src/caffe/layer_factory.cpp
+CXX src/caffe/common.cpp
+CXX src/caffe/solver.cpp
+AR -o .build_release/lib/libcaffe.a
+LD -o .build_release/lib/libcaffe.so.1.0.0
+CXX/LD -o .build_release/tools/caffe.bin
+CXX/LD -o .build_release/tools/upgrade_solver_proto_text.bin
+CXX/LD -o .build_release/tools/convert_imageset.bin
+CXX/LD -o .build_release/tools/compute_image_mean.bin
+CXX/LD -o .build_release/tools/upgrade_net_proto_binary.bin
+CXX/LD -o .build_release/tools/extract_features.bin
+CXX/LD -o .build_release/tools/upgrade_net_proto_text.bin
+CXX/LD -o .build_release/examples/cpp_classification/classification.bin
+CXX/LD -o .build_release/examples/mnist/convert_mnist_data.bin
+CXX/LD -o .build_release/examples/siamese/convert_mnist_siamese_data.bin
+CXX/LD -o .build_release/examples/cifar10/convert_cifar_data.bin
+touch python/caffe/proto/__init__.py
+CXX/LD -o python/caffe/_caffe.so python/caffe/_caffe.cpp
+PROTOC (python) src/caffe/proto/caffe.proto
+CXX src/caffe/test/test_gradient_based_solver.cpp
+CXX src/caffe/test/test_common.cpp
+CXX src/caffe/test/test_dummy_data_layer.cpp
+CXX src/caffe/test/test_protobuf.cpp
+CXX src/caffe/test/test_syncedmem.cpp
+CXX src/caffe/test/test_bias_layer.cpp
+CXX src/caffe/test/test_scale_layer.cpp
+CXX src/caffe/test/test_contrastive_loss_layer.cpp
+CXX src/caffe/test/test_net.cpp
+CXX src/caffe/test/test_lstm_layer.cpp
+CXX src/caffe/test/test_reduction_layer.cpp
+CXX src/caffe/test/test_hdf5data_layer.cpp
+CXX src/caffe/test/test_random_number_generator.cpp
+CXX src/caffe/test/test_layer_factory.cpp
+CXX src/caffe/test/test_rnn_layer.cpp
+CXX src/caffe/test/test_accuracy_layer.cpp
+CXX src/caffe/test/test_spp_layer.cpp
+CXX src/caffe/test/test_hinge_loss_layer.cpp
+CXX src/caffe/test/test_math_functions.cpp
+CXX src/caffe/test/test_tile_layer.cpp
+CXX src/caffe/test/test_batch_norm_layer.cpp
+CXX src/caffe/test/test_maxpool_dropout_layers.cpp
+CXX src/caffe/test/test_crop_layer.cpp
+CXX src/caffe/test/test_solver_factory.cpp
+CXX src/caffe/test/test_sigmoid_cross_entropy_loss_layer.cpp
+CXX src/caffe/test/test_inner_product_layer.cpp
+CXX src/caffe/test/test_softmax_layer.cpp
+CXX src/caffe/test/test_euclidean_loss_layer.cpp
+CXX src/caffe/test/test_mvn_layer.cpp
+CXX src/caffe/test/test_blob.cpp
+CXX src/caffe/test/test_hdf5_output_layer.cpp
+CXX src/caffe/test/test_benchmark.cpp
+CXX src/caffe/test/test_memory_data_layer.cpp
+CXX src/caffe/test/test_flatten_layer.cpp
+CXX src/caffe/test/test_filter_layer.cpp
+CXX src/caffe/test/test_solver.cpp
+CXX src/caffe/test/test_db.cpp
+CXX src/caffe/test/test_platform.cpp
+CXX src/caffe/test/test_util_blas.cpp
+CXX src/caffe/test/test_upgrade_proto.cpp
+CXX src/caffe/test/test_im2col_layer.cpp
+CXX src/caffe/test/test_data_layer.cpp
+CXX src/caffe/test/test_multinomial_logistic_loss_layer.cpp
+CXX src/caffe/test/test_split_layer.cpp
+CXX src/caffe/test/test_io.cpp
+CXX src/caffe/test/test_concat_layer.cpp
+CXX src/caffe/test/test_neuron_layer.cpp
+CXX src/caffe/test/test_slice_layer.cpp
+CXX src/caffe/test/test_power_layer.cpp
+CXX src/caffe/test/test_infogain_loss_layer.cpp
+CXX src/caffe/test/test_internal_thread.cpp
+CXX src/caffe/test/test_threshold_layer.cpp
+CXX src/caffe/test/test_embed_layer.cpp
+CXX src/caffe/test/test_argmax_layer.cpp
+CXX src/caffe/test/test_data_transformer.cpp
+CXX src/caffe/test/test_stochastic_pooling.cpp
+CXX src/caffe/test/test_filler.cpp
+CXX src/caffe/test/test_pooling_layer.cpp
+CXX src/caffe/test/test_lrn_layer.cpp
+CXX src/caffe/test/test_eltwise_layer.cpp
+CXX src/caffe/test/test_tanh_layer.cpp
+CXX src/caffe/test/test_batch_reindex_layer.cpp
+CXX src/caffe/test/test_softmax_with_loss_layer.cpp
+CXX src/caffe/test/test_deconvolution_layer.cpp
+CXX src/caffe/test/test_reshape_layer.cpp
+CXX src/caffe/test/test_image_data_layer.cpp
+CXX src/caffe/test/test_convolution_layer.cpp
+NVCC src/caffe/test/test_im2col_kernel.cu
+CXX src/gtest/gtest-all.cpp
+LD .build_release/src/caffe/test/test_common.o
+LD .build_release/src/caffe/test/test_gradient_based_solver.o
+LD .build_release/src/caffe/test/test_dummy_data_layer.o
+LD .build_release/src/caffe/test/test_protobuf.o
+LD .build_release/src/caffe/test/test_syncedmem.o
+LD .build_release/src/caffe/test/test_bias_layer.o
+LD .build_release/src/caffe/test/test_scale_layer.o
+LD .build_release/src/caffe/test/test_contrastive_loss_layer.o
+LD .build_release/src/caffe/test/test_net.o
+LD .build_release/src/caffe/test/test_lstm_layer.o
+LD .build_release/src/caffe/test/test_reduction_layer.o
+LD .build_release/src/caffe/test/test_hdf5data_layer.o
+LD .build_release/src/caffe/test/test_random_number_generator.o
+LD .build_release/src/caffe/test/test_layer_factory.o
+LD .build_release/src/caffe/test/test_rnn_layer.o
+LD .build_release/src/caffe/test/test_accuracy_layer.o
+LD .build_release/src/caffe/test/test_spp_layer.o
+LD .build_release/src/caffe/test/test_hinge_loss_layer.o
+LD .build_release/src/caffe/test/test_math_functions.o
+LD .build_release/src/caffe/test/test_tile_layer.o
+LD .build_release/src/caffe/test/test_batch_norm_layer.o
+LD .build_release/src/caffe/test/test_maxpool_dropout_layers.o
+LD .build_release/src/caffe/test/test_crop_layer.o
+LD .build_release/src/caffe/test/test_solver_factory.o
+LD .build_release/src/caffe/test/test_sigmoid_cross_entropy_loss_layer.o
+LD .build_release/src/caffe/test/test_inner_product_layer.o
+LD .build_release/src/caffe/test/test_softmax_layer.o
+LD .build_release/src/caffe/test/test_euclidean_loss_layer.o
+LD .build_release/src/caffe/test/test_mvn_layer.o
+LD .build_release/src/caffe/test/test_blob.o
+LD .build_release/src/caffe/test/test_hdf5_output_layer.o
+LD .build_release/src/caffe/test/test_benchmark.o
+LD .build_release/src/caffe/test/test_memory_data_layer.o
+LD .build_release/src/caffe/test/test_flatten_layer.o
+LD .build_release/src/caffe/test/test_filter_layer.o
+LD .build_release/src/caffe/test/test_solver.o
+LD .build_release/src/caffe/test/test_db.o
+LD .build_release/src/caffe/test/test_platform.o
+LD .build_release/src/caffe/test/test_util_blas.o
+LD .build_release/src/caffe/test/test_upgrade_proto.o
+LD .build_release/src/caffe/test/test_im2col_layer.o
+LD .build_release/src/caffe/test/test_data_layer.o
+LD .build_release/src/caffe/test/test_multinomial_logistic_loss_layer.o
+LD .build_release/src/caffe/test/test_split_layer.o
+LD .build_release/src/caffe/test/test_io.o
+LD .build_release/src/caffe/test/test_concat_layer.o
+LD .build_release/src/caffe/test/test_neuron_layer.o
+LD .build_release/src/caffe/test/test_slice_layer.o
+LD .build_release/src/caffe/test/test_power_layer.o
+LD .build_release/src/caffe/test/test_infogain_loss_layer.o
+LD .build_release/src/caffe/test/test_internal_thread.o
+LD .build_release/src/caffe/test/test_threshold_layer.o
+LD .build_release/src/caffe/test/test_embed_layer.o
+LD .build_release/src/caffe/test/test_argmax_layer.o
+LD .build_release/src/caffe/test/test_data_transformer.o
+LD .build_release/src/caffe/test/test_stochastic_pooling.o
+LD .build_release/src/caffe/test/test_filler.o
+LD .build_release/src/caffe/test/test_pooling_layer.o
+LD .build_release/src/caffe/test/test_lrn_layer.o
+LD .build_release/src/caffe/test/test_eltwise_layer.o
+LD .build_release/src/caffe/test/test_tanh_layer.o
+LD .build_release/src/caffe/test/test_batch_reindex_layer.o
+LD .build_release/src/caffe/test/test_softmax_with_loss_layer.o
+LD .build_release/src/caffe/test/test_deconvolution_layer.o
+LD .build_release/src/caffe/test/test_reshape_layer.o
+LD .build_release/src/caffe/test/test_image_data_layer.o
+LD .build_release/src/caffe/test/test_convolution_layer.o
+LD .build_release/cuda/src/caffe/test/test_im2col_kernel.o
+CXX/LD -o .build_release/test/test_all.testbin src/caffe/test/test_caffe_main.cpp
+# add proto
+cp -r src/caffe/proto distribute/
+# add include
+cp -r include distribute/
+mkdir -p distribute/include/caffe/proto
+cp .build_release/src/caffe/proto/caffe.pb.h distribute/include/caffe/proto
+# add tool and example binaries
+cp .build_release/tools/caffe.bin .build_release/tools/convert_imageset.bin .build_release/tools/upgrade_solver_proto_text.bin .build_release/tools/compute_image_mean.bin .build_release/tools/extract_features.bin .build_release/tools/upgrade_net_proto_binary.bin .build_release/tools/upgrade_net_proto_text.bin distribute/bin
+cp .build_release/examples/cpp_classification/classification.bin .build_release/examples/mnist/convert_mnist_data.bin .build_release/examples/siamese/convert_mnist_siamese_data.bin .build_release/examples/cifar10/convert_cifar_data.bin distribute/bin
+# add libraries
+cp .build_release/lib/libcaffe.a distribute/lib
+install -m 644 .build_release/lib/libcaffe.so.1.0.0 distribute/lib
+cd distribute/lib; rm -f libcaffe.so;   ln -s libcaffe.so.1.0.0 libcaffe.so
+# add python - it's not the standard way, indeed...
+cp -r python distribute/
+Removing intermediate container 94eab022dcd0
+ ---> edc7f4c99ed8
+Step 11/22 : COPY scripts/versions.sh /home/build/
+ ---> 9e43c5af5009
+Step 12/22 : RUN /home/build/versions.sh > /home/build/versions.txt
+ ---> Running in 90a106256db3
+Removing intermediate container 90a106256db3
+ ---> 02dae8654280
+Step 13/22 : FROM nvidia/cuda:10.1-cudnn7-runtime-ubuntu18.04
+ ---> 554b9758e426
+Step 14/22 : LABEL maintainer "Daniel Haase <dockerhub@dhaase.de>"
+ ---> Using cache
+ ---> 6721b01c86a4
+Step 15/22 : ENV DEBIAN_FRONTEND=noninteractive
+ ---> Using cache
+ ---> 4e946df8e1ac
+Step 16/22 : RUN apt-get update && apt-get install --no-install-recommends --assume-yes     less     mc     vim     libatlas-base-dev     libboost-all-dev     libgflags-dev     libgoogle-glog-dev     libhdf5-serial-dev     liblmdb-dev     libleveldb-dev     libopencv-dev     libprotobuf-dev     libsnappy-dev     python3     python3-numpy     python3-opencv     python3-pip     python3-setuptools     python3-skimage     python3-sklearn     && rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> d08c30320802
+Step 17/22 : RUN pip3 install --upgrade pip setuptools
+ ---> Running in ab405a91cdda
+Collecting pip
+  Downloading https://files.pythonhosted.org/packages/a4/6d/6463d49a933f547439d6b5b98b46af8742cc03ae83543e4d7688c2420f8b/pip-21.3.1-py3-none-any.whl (1.7MB)
+Collecting setuptools
+  Downloading https://files.pythonhosted.org/packages/b0/3a/88b210db68e56854d0bcf4b38e165e03be377e13907746f825790f3df5bf/setuptools-59.6.0-py3-none-any.whl (952kB)
+Installing collected packages: pip, setuptools
+  Found existing installation: pip 9.0.1
+    Not uninstalling pip at /usr/lib/python3/dist-packages, outside environment /usr
+  Found existing installation: setuptools 39.0.1
+    Not uninstalling setuptools at /usr/lib/python3/dist-packages, outside environment /usr
+Successfully installed pip-21.3.1 setuptools-59.6.0
+Removing intermediate container ab405a91cdda
+ ---> cd027e5f1cfb
+Step 18/22 : RUN pip3 install setuptools protobuf tensorflow==1.9.0
+ ---> Running in 2d5db9899722
+Requirement already satisfied: setuptools in /usr/local/lib/python3.6/dist-packages (59.6.0)
+Collecting protobuf
+  Downloading protobuf-3.19.3-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.1 MB)
+Collecting tensorflow==1.9.0
+  Downloading tensorflow-1.9.0-cp36-cp36m-manylinux1_x86_64.whl (51.1 MB)
+Requirement already satisfied: numpy>=1.13.3 in /usr/lib/python3/dist-packages (from tensorflow==1.9.0) (1.13.3)
+Collecting gast>=0.2.0
+  Downloading gast-0.5.3-py3-none-any.whl (19 kB)
+Collecting setuptools
+  Downloading setuptools-39.1.0-py2.py3-none-any.whl (566 kB)
+Collecting wheel>=0.26
+  Downloading wheel-0.37.1-py2.py3-none-any.whl (35 kB)
+Collecting grpcio>=1.8.6
+  Downloading grpcio-1.43.0-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.1 MB)
+Collecting astor>=0.6.0
+  Downloading astor-0.8.1-py2.py3-none-any.whl (27 kB)
+Requirement already satisfied: six>=1.10.0 in /usr/lib/python3/dist-packages (from tensorflow==1.9.0) (1.11.0)
+Collecting termcolor>=1.1.0
+  Downloading termcolor-1.1.0.tar.gz (3.9 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting absl-py>=0.1.6
+  Downloading absl_py-1.0.0-py3-none-any.whl (126 kB)
+Collecting tensorboard<1.10.0,>=1.9.0
+  Downloading tensorboard-1.9.0-py3-none-any.whl (3.3 MB)
+Collecting markdown>=2.6.8
+  Downloading Markdown-3.3.6-py3-none-any.whl (97 kB)
+Collecting werkzeug>=0.11.10
+  Downloading Werkzeug-2.0.2-py3-none-any.whl (288 kB)
+Collecting importlib-metadata>=4.4
+  Downloading importlib_metadata-4.8.3-py3-none-any.whl (17 kB)
+Collecting dataclasses
+  Downloading dataclasses-0.8-py3-none-any.whl (19 kB)
+Collecting zipp>=0.5
+  Downloading zipp-3.6.0-py3-none-any.whl (5.3 kB)
+Collecting typing-extensions>=3.6.4
+  Downloading typing_extensions-4.0.1-py3-none-any.whl (22 kB)
+Using legacy 'setup.py install' for termcolor, since package 'wheel' is not installed.
+Installing collected packages: zipp, typing-extensions, importlib-metadata, dataclasses, wheel, werkzeug, protobuf, markdown, termcolor, tensorboard, setuptools, grpcio, gast, astor, absl-py, tensorflow
+    Running setup.py install for termcolor: started
+    Running setup.py install for termcolor: finished with status 'done'
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 59.6.0
+    Uninstalling setuptools-59.6.0:
+      Successfully uninstalled setuptools-59.6.0
+Successfully installed absl-py-1.0.0 astor-0.8.1 dataclasses-0.8 gast-0.5.3 grpcio-1.43.0 importlib-metadata-4.8.3 markdown-3.3.6 protobuf-3.19.3 setuptools-39.1.0 tensorboard-1.9.0 tensorflow-1.9.0 termcolor-1.1.0 typing-extensions-4.0.1 werkzeug-2.0.2 wheel-0.37.1 zipp-3.6.0
+[91mWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+[0mRemoving intermediate container 2d5db9899722
+ ---> 4825e1eeca60
+Step 19/22 : COPY --from=builder /home/build/caffe/distribute/ /home/build/caffe/distribute/
+ ---> 5ff28d8610e8
+Step 20/22 : ENV PATH="/home/build/caffe/distribute/bin:${PATH}" LD_LIBRARY_PATH="/home/build/caffe/distribute/lib:${LD_LIBRARY_PATH}" PYTHONPATH="/home/build/caffe/distribute/python:${PYTHONPATH}"
+ ---> Running in b3cf8cd4fee3
+Removing intermediate container b3cf8cd4fee3
+ ---> 903e714655b7
+Step 21/22 : COPY Dockerfile /home/build/
+ ---> 4f49bd7a4b0b
+Step 22/22 : COPY --from=builder /home/build/versions.txt /home/build/versions.txt
+ ---> 1c3223bee5a9
+Successfully built 1c3223bee5a9

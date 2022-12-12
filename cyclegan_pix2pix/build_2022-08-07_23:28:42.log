@@ -1,0 +1,61 @@
+Sending build context to Docker daemon  4.608kB
+Step 1/10 : FROM nvidia/cuda:10.1-base
+10.1-base: Pulling from nvidia/cuda
+25fa05cd42bd: Pulling fs layer
+2d6e353a95ec: Pulling fs layer
+1e9ee2cfc404: Pulling fs layer
+5f9764d07d47: Pulling fs layer
+af198b3d7e10: Pulling fs layer
+5f9764d07d47: Waiting
+af198b3d7e10: Waiting
+1e9ee2cfc404: Verifying Checksum
+1e9ee2cfc404: Download complete
+5f9764d07d47: Verifying Checksum
+5f9764d07d47: Download complete
+af198b3d7e10: Download complete
+2d6e353a95ec: Verifying Checksum
+2d6e353a95ec: Download complete
+25fa05cd42bd: Verifying Checksum
+25fa05cd42bd: Download complete
+25fa05cd42bd: Pull complete
+2d6e353a95ec: Pull complete
+1e9ee2cfc404: Pull complete
+5f9764d07d47: Pull complete
+af198b3d7e10: Pull complete
+Digest: sha256:c5c4512afe0179cd018591348173a1344930f695fb23f8485a9b713efc9d87dc
+Status: Downloaded newer image for nvidia/cuda:10.1-base
+ ---> bfa75f8b799e
+Step 2/10 : RUN apt update && apt install -y wget unzip curl bzip2 git
+ ---> Running in 372b6dbe7086
+[91m
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+[0mGet:1 http://archive.ubuntu.com/ubuntu bionic InRelease [242 kB]
+Get:2 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64  InRelease [1581 B]
+Get:3 http://security.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]
+Get:4 http://archive.ubuntu.com/ubuntu bionic-updates InRelease [88.7 kB]
+Err:2 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64  InRelease
+  The following signatures couldn't be verified because the public key is not available: NO_PUBKEY A4B469963BF863CC
+Get:5 http://archive.ubuntu.com/ubuntu bionic-backports InRelease [74.6 kB]
+Ign:6 https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64  InRelease
+Get:7 http://archive.ubuntu.com/ubuntu bionic/multiverse amd64 Packages [186 kB]
+Get:8 https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64  Release [564 B]
+Get:9 https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64  Release.gpg [833 B]
+Get:10 http://archive.ubuntu.com/ubuntu bionic/restricted amd64 Packages [13.5 kB]
+Get:11 http://archive.ubuntu.com/ubuntu bionic/main amd64 Packages [1344 kB]
+Get:12 https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64  Packages [73.8 kB]
+Get:13 http://security.ubuntu.com/ubuntu bionic-security/universe amd64 Packages [1528 kB]
+Get:14 http://archive.ubuntu.com/ubuntu bionic/universe amd64 Packages [11.3 MB]
+Get:15 http://security.ubuntu.com/ubuntu bionic-security/main amd64 Packages [2905 kB]
+Get:16 http://archive.ubuntu.com/ubuntu bionic-updates/restricted amd64 Packages [1109 kB]
+Get:17 http://archive.ubuntu.com/ubuntu bionic-updates/multiverse amd64 Packages [29.9 kB]
+Get:18 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 Packages [3336 kB]
+Get:19 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 Packages [2306 kB]
+Get:20 http://archive.ubuntu.com/ubuntu bionic-backports/main amd64 Packages [12.2 kB]
+Get:21 http://archive.ubuntu.com/ubuntu bionic-backports/universe amd64 Packages [12.9 kB]
+Get:22 http://security.ubuntu.com/ubuntu bionic-security/restricted amd64 Packages [1068 kB]
+Get:23 http://security.ubuntu.com/ubuntu bionic-security/multiverse amd64 Packages [22.8 kB]
+Reading package lists...
+[91mW: GPG error: https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64  InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY A4B469963BF863CC
+E: The repository 'https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64  InRelease' is not signed.
+[0m

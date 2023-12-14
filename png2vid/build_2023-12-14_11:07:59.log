@@ -1,17 +1,17 @@
-Sending build context to Docker daemon    279kB
+Sending build context to Docker daemon  274.4kB
 Step 1/5 : FROM ubuntu:23.04
  ---> f4cdeba72b99
 Step 2/5 : RUN apt-get update && apt-get install --no-install-recommends --assume-yes     ffmpeg     python3     && rm -rf /var/lib/apt/lists/*
  ---> Using cache
  ---> de866c094cf2
 Step 3/5 : COPY scripts/entrypoint.py /
- ---> f6705fe80f44
+ ---> 4851900e851b
 Step 4/5 : WORKDIR /home/work
- ---> Running in e46c02f1ca1e
-Removing intermediate container e46c02f1ca1e
- ---> c6ce1f339574
+ ---> Running in 25e0d9fd19b5
+Removing intermediate container 25e0d9fd19b5
+ ---> afaa388c8616
 Step 5/5 : ENTRYPOINT ["/entrypoint.py"]
- ---> Running in 8ee71c7ae6f3
-Removing intermediate container 8ee71c7ae6f3
- ---> aa34a3c76915
-Successfully built aa34a3c76915
+ ---> Running in c4aa25536a3a
+Removing intermediate container c4aa25536a3a
+ ---> 1a8a2336d8f1
+Successfully built 1a8a2336d8f1
